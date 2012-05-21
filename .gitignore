@@ -1,5 +1,5 @@
-bin/*
-gen/*
+library/bin/*
+library/gen/*
 modules/admob/bin/*
 modules/admob/gen/*
 modules/google_analytics/bin/*
