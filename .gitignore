@@ -1,0 +1,4 @@
+bin/*
+gen/*
+modules/*/bin/*
+modules/*/gen/*

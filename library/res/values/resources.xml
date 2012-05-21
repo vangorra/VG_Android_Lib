@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<resources> 
+    <declare-styleable name="AbsoluteLayout"> 
+        <attr name="android:layout_x" />
+        <attr name="android:layout_y" /> 
+    </declare-styleable> 
+</resources>
