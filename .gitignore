@@ -1,4 +1,8 @@
 bin/*
 gen/*
-modules/*/bin/*
-modules/*/gen/*
+modules/admob/bin/*
+modules/admob/gen/*
+modules/google_analytics/bin/*
+modules/google_analytics/gen/*
+modules/ormlite/bin/*
+modules/ormlite/gen/*
