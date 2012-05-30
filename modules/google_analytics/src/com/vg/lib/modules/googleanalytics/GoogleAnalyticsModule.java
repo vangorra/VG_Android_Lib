@@ -42,7 +42,7 @@ public class GoogleAnalyticsModule extends ModuleImpl {
 	 */
 	public GoogleAnalyticsTracker getTracker() {
 		return this.tracker;
-	}
+	} // method
 	
 	@Override
 	public void load(Context context, Bundle args) {
@@ -74,7 +74,7 @@ public class GoogleAnalyticsModule extends ModuleImpl {
 	@Override
 	public void unLoad() {
 		// nothing to do here.
-	}
+	} // method
 
 	@Override
 	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {

@@ -5,5 +5,9 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/VG_Android_Lib"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VGMod_Admob"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VGMod_AppLock"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VGMod_GoogleAnalytics"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/VGMod_OrmLite"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

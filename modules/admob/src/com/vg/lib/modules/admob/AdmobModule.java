@@ -64,12 +64,16 @@ public class AdmobModule extends ModuleImpl {
 		 * Configure the API key.
 		 */
 		// get the key from the args.
-		this.apiKey = args.getString(KEY);
+		apiKey = args.getString(KEY);
 		
-		// if the key is not set
-		if(this.apiKey == null) {
-			// throw exception
-			throw new IllegalArgumentException("Invalid ad key set.");
+		// check for null
+		if(apiKey == null) {
+			throw new IllegalArgumentException("Ad key cannot be null.");
+		}
+		
+		// check for empty string.
+		if(apiKey.length() <= 0) {
+			throw new IllegalArgumentException("Ad key cannot be an empty string.");
 		}
 		
 		/**
@@ -80,7 +84,7 @@ public class AdmobModule extends ModuleImpl {
 		
 		// if something was sent, then use it.
 		if(resId > 0) {
-			this.adsWrapperRes = resId;
+			adsWrapperRes = resId;
 		}
 		
 		/**

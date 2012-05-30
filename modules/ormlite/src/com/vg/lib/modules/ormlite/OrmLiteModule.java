@@ -12,11 +12,8 @@ public class OrmLiteModule extends ModuleImpl {
 	public static final String DATABASE_VERSION = "databaseVersion";
 	
 	private volatile DatabaseOpenHelper helper;
-	private volatile boolean created = false;
-	private volatile boolean destroyed = false;
 	private Context context;
 	private int loadCount = 0;
-	//private Bundle args;
 	private String databaseName;
 	private int databaseVersion;
 	
@@ -78,13 +75,37 @@ public class OrmLiteModule extends ModuleImpl {
 	
 	@Override
 	public void load(Context context, Bundle args) {
-		this.context = context;
-		
-		databaseName = args.getString(DATABASE_NAME);
-		if(databaseName == null) {
-			throw new IllegalArgumentException("You must provide a database name.");
+		// check for null
+		if(context == null) {
+			throw new IllegalArgumentException("context cannot be null");
+		}
+
+		// check for null
+		if(args == null) {
+			throw new IllegalArgumentException("args cannot be null");
 		}
 		
+		this.context = context;
+		
+		/*
+		 * Set the database name.
+		 */
+		// get the variable.
+		databaseName = args.getString(DATABASE_NAME);
+		
+		// check for null.
+		if(databaseName == null) {
+			throw new IllegalArgumentException("DATABASE_NAME is required.");
+		}
+		
+		// check for empty string.
+		if(databaseName.length() <= 0) {
+			throw new IllegalArgumentException("DATABASE_NAME cannot be an empty string.");
+		}
+		
+		/**
+		 * Set the database version.
+		 */
 		databaseVersion = args.getInt(DATABASE_VERSION);
 		if(databaseVersion <= 0) {
 			throw new IllegalArgumentException("Invalid version number. Must be >= 0");
