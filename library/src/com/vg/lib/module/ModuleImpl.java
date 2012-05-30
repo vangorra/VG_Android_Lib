@@ -1,6 +1,7 @@
 package com.vg.lib.module;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -60,6 +61,17 @@ public abstract class ModuleImpl implements Module {
 
 	@Override
 	public void onActivityStop(Activity activity) {
+		// empty
+	}
+
+	@Override
+	public void onActivityResult(Activity activity, int requestCode,
+			int resultCode, Intent data) {
+		// empty
+	}
+
+	@Override
+	public void onActivityUserInteraction(Activity activity) {
 		// empty
 	}
 } // class

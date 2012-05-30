@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -18,6 +19,7 @@ public final class ModuleManager {
 	private static ModuleManager moduleManager;
 	private HashMap<String,ModuleContainer> containers = new HashMap<String,ModuleContainer>();
 	private Context appContext;
+	private ModuleDispatcher dispatcher = new ModuleDispatcher(); 
 	
 	/**
 	 * Provides meta-data about a managed module.
@@ -39,10 +41,10 @@ public final class ModuleManager {
 		
 		// set the app context.
 		this.appContext = context.getApplicationContext();
-	}
+	} // method
 	
 	/**
-	 * Gets an instance of the module manager or create a new instance if one doesn't exist yet.
+	 * Gets the current instance of the module manager or create a new instance if one doesn't exist yet.
 	 * @param context The context calling the module manager.
 	 * @return The current module manager instance.
 	 */
@@ -60,7 +62,27 @@ public final class ModuleManager {
 		
 		// return the static instance of the module manager.
 		return moduleManager;
-	}
+	} // method
+	
+	/**
+	 * The the current instance of the module manager. Will throw an IllegalStateException if the module manager 
+	 * has not been initialized via ModuleManager.getInstance(Context)
+	 * @return The current module manager instance.
+	 */
+	public static ModuleManager getInstance() {
+		if(moduleManager == null) {
+			throw new IllegalStateException("ModuleManager was never initialized. You must call ModuleManager.getInstance(Context) to get it initialized.");
+		}
+		return moduleManager;
+	} // method
+	
+	/**
+	 * Get the dispatcher for dispatching events to modules.
+	 * @return The module dispatcher.
+	 */
+	ModuleDispatcher getDispatcher() {
+		return dispatcher;
+	} // method
 	
 	/**
 	 * Returns true if the specified module is loaded.
@@ -75,7 +97,7 @@ public final class ModuleManager {
 		
 		// return if a module was returned.
 		return this.get(modName) != null;
-	}
+	} // method
 
 	/**
 	 * Load a module with the given name and referenced by its class.
@@ -203,151 +225,98 @@ public final class ModuleManager {
 		return mc.module;
 	} // method
 	
-	
 	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 * @param savedInstanceState The parameters passed to the activity.
+	 * Provides a class for dispatching an event to all modules.
+	 * @author vangorra
+	 *
 	 */
-	void onActivityCreate(Activity activity, Bundle savedInstanceState) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
+	final class ModuleDispatcher implements ModuleHooks {
+		@Override
+		public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityCreate(activity, savedInstanceState);
+			}
+		} // method
+
+		@Override
+		public void onActivityPostCreate(Activity activity, Bundle savedInstanceState) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityPostCreate(activity, savedInstanceState);
+			}
+		} // method
 		
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityCreate(activity, savedInstanceState);
-		}
-	} // method
+		@Override
+		public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivitySaveInstanceState(activity, outState);
+			}
+		} // method
 
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 * @param savedInstanceState The parameters passed to the activity.
-	 */
-	void onActivityPostCreate(Activity activity, Bundle savedInstanceState) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
+		@Override
+		public void onActivityPause(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityPause(activity);
+			}
+		} // method
+
+		@Override
+		public void onActivityRestart(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityRestart(activity);
+			}
+		} // method
+
+		@Override
+		public void onActivityDestroy(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityDestroy(activity);
+			}
+		} // method
+
+		@Override
+		public void onActivityResume(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityResume(activity);
+			}
+		} // method
+
+		@Override
+		public void onActivityStart(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityPause(activity);
+			}
+		} // method
+
+		@Override
+		public void onActivityStop(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityStop(activity);
+			}
+		} // method
 		
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityPostCreate(activity, savedInstanceState);
-		}
-	} // method
-	
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 * @param outState The parameters passed to the activity.
-	 */
-	void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-		
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivitySaveInstanceState(activity, outState);
-		}
-	} // method
+		@Override
+		public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityResult(activity, requestCode, resultCode, data);
+			}
+		} // method
 
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityPause(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-		
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityPause(activity);
-		}
-	} // method
-
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityRestart(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-		
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityRestart(activity);
-		}
-	} // method
-
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityDestroy(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityDestroy(activity);
-		}
-	} // method
-
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityResume(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityResume(activity);
-		}
-	} // method
-
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityStart(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityPause(activity);
-		}
-	} // method
-
-	/**
-	 * Handle the activity event and propagates the event to all the loaded modules.
-	 * @param activity The activity where the event began.
-	 */
-	void onActivityStop(Activity activity) {
-		// check for null
-		if(activity == null) {
-			throw new IllegalArgumentException("activity cannot be null");
-		}
-
-		// iterate trough the loaded modules and call the event.
-		for(ModuleContainer mc: containers.values()) {
-			mc.module.onActivityStop(activity);
-		}
-	} // method
+		@Override
+		public void onActivityUserInteraction(Activity activity) {
+			// iterate trough the loaded modules and call the event.
+			for(ModuleContainer mc: containers.values()) {
+				mc.module.onActivityUserInteraction(activity);
+			}
+		} // method
+	} // class
 } // class

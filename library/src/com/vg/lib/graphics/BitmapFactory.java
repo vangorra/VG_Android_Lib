@@ -20,7 +20,7 @@ public class BitmapFactory extends android.graphics.BitmapFactory {
 	 * @param url The http url of the image.
 	 * @return The decoded bitmap or null if the image data could not be decoded.
 	 */
-	public static Bitmap decodeUri(URL url) {
+	public static Bitmap decodeURL(URL url) {
 		// check for null
 		if(url == null) {
 			throw new IllegalArgumentException("url cannot be null");

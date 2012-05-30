@@ -91,7 +91,7 @@ public class AssetFileUtils {
 	 * @return true is the copy was successful, false otherwise.
 	 * @throws IOException
 	 */
-	private static boolean copyFile(Context context, String assetPath, String destPath) throws IOException {
+	public static boolean copyFile(Context context, String assetPath, String destPath) throws IOException {
 		// check for null
 		if(context == null) {
 			throw new IllegalArgumentException("context cannot be null");

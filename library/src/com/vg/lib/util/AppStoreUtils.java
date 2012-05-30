@@ -1,5 +1,6 @@
 package com.vg.lib.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -39,6 +40,26 @@ public final class AppStoreUtils {
 		"market://",
 		"amzn://apps/",
 	};
+	
+	/**
+	 * Return an array of available stores.
+	 * @param context The context to use.
+	 * @return An array of supported stores. If no stores were found, then an empty array will be returned.
+	 */
+	public static Store[] getAvailableStores(Context context) {
+		ArrayList<Store> stores = new ArrayList<Store>();
+		
+		// iterate through each store.
+		for(Store s: supportedStores) {
+			// if it is available, then add to the list.
+			if(isStoreAvailable(context, s)) {
+				stores.add(s);
+			}
+		}
+		
+		// return the available stores as an array.
+		return stores.toArray(new Store[stores.size()]);
+	}
 	
 	/**
 	 * Checks if an specific app store is available on this device.
