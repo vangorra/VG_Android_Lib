@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class FileUtils {
+	// Pulled from: StackOverflow: http://stackoverflow.com/questions/779519/delete-files-recursively-in-java</p>
     /**
      * By default File#delete fails for non-empty directories, it works like "rm". 
      * We need something a little more brutual - this does the equivalent of "rm -r"
      * @param path Root File Path
-     * @return true iff the file and all sub files/directories have been removed
+     * @return true if the file and all sub files/directories have been removed
      * @throws FileNotFoundException
      */
     public static boolean deleteRecursive(File path) throws FileNotFoundException{
@@ -20,5 +21,5 @@ public class FileUtils {
             }
         }
         return ret && path.delete();
-    }
-}
+    } // method
+} // class

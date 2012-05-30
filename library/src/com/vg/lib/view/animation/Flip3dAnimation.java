@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.vg.lib.view;
+package com.vg.lib.view.animation;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;
@@ -21,7 +21,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+// Pulled from: http://code.google.com/p/mnemobot/source/browse/src/com/dubroy/mnemobot/Flip3dAnimation.java
 /**
+ * 
  * Performs a flip animation between two views.  This implementation is highly
  * inspired by the 3D transition sample in the android SDK, but corrects a
  * huge bug where the destination view remains flipped 180 degree!  This is

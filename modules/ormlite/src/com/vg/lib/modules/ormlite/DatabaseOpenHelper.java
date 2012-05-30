@@ -3,17 +3,14 @@ package com.vg.lib.modules.ormlite;
 import java.io.File;
 import java.io.InputStream;
 
-import android.R;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
-import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.android.AndroidDatabaseConnection;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
-import com.vg.lib.Config;
 
 public class DatabaseOpenHelper extends OrmLiteSqliteOpenHelper {
 	/**

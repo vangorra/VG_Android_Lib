@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 

@@ -3,12 +3,9 @@ package com.vg.lib.modules.googleanalytics;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import com.vg.lib.module.Module;
-import com.vg.lib.module.BaseModuleImpl;
-import com.vg.lib.module.ModuleRuntimeException;
+import com.vg.lib.module.ModuleImpl;
 
 /**
  * Provides automatic Google Analytics support to your activity.
@@ -20,7 +17,7 @@ import com.vg.lib.module.ModuleRuntimeException;
  * @author vangorra
  *
  */
-public class GoogleAnalyticsModule extends BaseModuleImpl {
+public class GoogleAnalyticsModule extends ModuleImpl {
 	/**
 	 * Argument specifying the google analytics tracker id (key) to use.
 	 * This is required.
@@ -58,7 +55,7 @@ public class GoogleAnalyticsModule extends BaseModuleImpl {
 		// if the tracker id was not set.
 		if(trackerId == null) {
 			// throw exception.
-			throw new ModuleRuntimeException("TRACKER_ID needs to be set when loading this module.");
+			throw new IllegalArgumentException("TRACKER_ID needs to be set when loading this module.");
 		}
 		
 		/**

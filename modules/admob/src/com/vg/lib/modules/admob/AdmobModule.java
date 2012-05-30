@@ -9,20 +9,18 @@ import android.widget.LinearLayout;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
-import com.vg.lib.module.Module;
-import com.vg.lib.module.BaseModuleImpl;
-import com.vg.lib.module.ModuleManagerException;
+import com.vg.lib.module.ModuleImpl;
 
 /**
  * Provides support for admob ads. By default this module will search your
- * layout for com.vg.lib.R.id.adsWrapper and place the ads in there.
- * This can be overriden by loading the module with different arguments.
+ * layout for com.vg.lib.modules.admob.R.id.adsWrapper and place the ads in there.
+ * This can be overridden by loading the module with different arguments.
  * Note: admob does require permissions to be set in order to run. Consult
  * the admob docs.
  * @author vangorra
  *
  */
-public class AdmobModule extends BaseModuleImpl {
+public class AdmobModule extends ModuleImpl {
 	/**
 	 * Argument specifying the api key to use.
 	 * Required for loading this module.
@@ -39,7 +37,7 @@ public class AdmobModule extends BaseModuleImpl {
 	/**
 	 * Argument specifying the layout id to place an ad in.
 	 * The layout is expected to be a LinearLayout.
-	 * This argument is optional, com.vg.lib.R.id.adsWrapper
+	 * This argument is optional, com.vg.lib.modules.admob.R.id.adsWrapper
 	 * is the default.
 	 */
 	public static final String AD_RES_ID = "adResourceId";
@@ -71,7 +69,7 @@ public class AdmobModule extends BaseModuleImpl {
 		// if the key is not set
 		if(this.apiKey == null) {
 			// throw exception
-			throw new ModuleManagerException("Invalid ad key set.");
+			throw new IllegalArgumentException("Invalid ad key set.");
 		}
 		
 		/**
@@ -108,7 +106,7 @@ public class AdmobModule extends BaseModuleImpl {
 				
 			// a proper size was not specified.
 			default:
-				throw new ModuleManagerException("Invalid size provided.");
+				throw new IllegalArgumentException("Invalid size provided.");
 		} // switch
 	} // method
 

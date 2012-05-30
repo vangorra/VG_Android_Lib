@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.support.ConnectionSource;
-import com.vg.lib.module.BaseModuleImpl;
-import com.vg.lib.module.Module;
-import com.vg.lib.module.ModuleRuntimeException;
+import com.vg.lib.module.ModuleImpl;
 
-public class OrmLiteModule extends BaseModuleImpl {
+public class OrmLiteModule extends ModuleImpl {
 	public static final String DATABASE_NAME = "databaseName";
 	public static final String DATABASE_VERSION = "databaseVersion";
 	
@@ -85,10 +82,10 @@ public class OrmLiteModule extends BaseModuleImpl {
 		int databaseVersion = args.getInt(DATABASE_VERSION);
 		
 		if(databaseName == null) {
-			throw new ModuleRuntimeException("You must provide a database name.");
+			throw new IllegalArgumentException("You must provide a database name.");
 		}
 		if(databaseVersion <= 0) {
-			throw new ModuleRuntimeException("Invalid version number. Must be >= 0");
+			throw new IllegalArgumentException("Invalid version number. Must be >= 0");
 		}
 		
 		this.args = args;

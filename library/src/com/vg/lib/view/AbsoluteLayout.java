@@ -17,17 +17,19 @@
 package com.vg.lib.view;
 
 
-import com.vg.lib.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vg.lib.R;
+
 
 
 /**
+ * <p>NOTICE! This class is pulled directly from the Android 1.6 source code. Google pulled this view for good reason, it is very rarely necessary.</p>
+ * 
  * A layout that lets you specify exact locations (x/y coordinates) of its
  * children. Absolute layouts are less flexible and harder to maintain than
  * other types of layouts without absolute positioning.
