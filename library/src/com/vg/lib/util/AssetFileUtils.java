@@ -21,7 +21,7 @@ public class AssetFileUtils {
 	 * @return true is the copy was successful, false otherwise.
 	 * @throws IOException
 	 */
-	public static boolean copyIfChanged(Context context, String assetPath, String destPath) throws IOException {
+	public static boolean copyFileIfChanged(Context context, String assetPath, String destPath) throws IOException {
 		// check for null
 		if(context == null) {
 			throw new IllegalArgumentException("context cannot be null");
@@ -30,6 +30,11 @@ public class AssetFileUtils {
 		// check for null
 		if(assetPath == null) {
 			throw new IllegalArgumentException("assetPath cannot be null");
+		}
+		
+		// check for empty
+		if(assetPath.length() == 0) {
+			throw new IllegalArgumentException("assetPath cannot be an empty string.");
 		}
 		
 		// check for null
@@ -100,6 +105,11 @@ public class AssetFileUtils {
 		// check for null
 		if(assetPath == null) {
 			throw new IllegalArgumentException("assetPath cannot be null");
+		}
+		
+		// check for empty
+		if(assetPath.length() == 0) {
+			throw new IllegalArgumentException("assetPath cannot be an empty string.");
 		}
 		
 		// check for null

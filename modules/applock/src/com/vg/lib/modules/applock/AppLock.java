@@ -23,14 +23,14 @@ import com.vg.lib.module.ModuleImpl;
  * 
  * Example:
  * <pre>
- * public void onModuleLoad() {
+ * public void onModuleLoad(ModuleManager moduleManager) {
  *   Bundle args = new Bundle();
  *   args.putString(
  *     AppLock.LOCKSCREEN_ACTIVITY_CLASS,
  *     com.yourcompany.activity.MyLockScreen.class.getName()
  *   ); 
  *   
- *   ModuleManager.getInstance(this).load(
+ *   moduleManager.load(
  *     APP_LOCK_MOD_NAME,
  *     com.vg.lib.modules.AppLock.class,
  *     BundleBuilder.create()

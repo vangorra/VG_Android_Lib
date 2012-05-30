@@ -16,7 +16,9 @@ public class OrmLiteModule extends ModuleImpl {
 	private volatile boolean destroyed = false;
 	private Context context;
 	private int loadCount = 0;
-	private Bundle args;
+	//private Bundle args;
+	private String databaseName;
+	private int databaseVersion;
 	
 	/**
 	 * Get a helper for this action.
@@ -78,18 +80,18 @@ public class OrmLiteModule extends ModuleImpl {
 	public void load(Context context, Bundle args) {
 		this.context = context;
 		
-		String databaseName = args.getString(DATABASE_NAME);
-		int databaseVersion = args.getInt(DATABASE_VERSION);
-		
+		databaseName = args.getString(DATABASE_NAME);
 		if(databaseName == null) {
 			throw new IllegalArgumentException("You must provide a database name.");
 		}
+		
+		databaseVersion = args.getInt(DATABASE_VERSION);
 		if(databaseVersion <= 0) {
 			throw new IllegalArgumentException("Invalid version number. Must be >= 0");
 		}
 		
-		this.args = args;
-		this.createHelper();
+		//this.args = args;
+		//this.createHelper();
 		//OpenHelperManager.setHelper(this.helper);
 		//created = true;
 	}
@@ -97,10 +99,10 @@ public class OrmLiteModule extends ModuleImpl {
 	private void createHelper() {
 		if(this.helper == null) {
 			this.helper = new DatabaseOpenHelper(
-					this.context,
-					this.args.getString(DATABASE_NAME),
+					context,
+					databaseName,
 					null,
-					this.args.getInt(DATABASE_VERSION)
+					databaseVersion
 			);
 		}
 	}

@@ -14,14 +14,14 @@ public abstract class ModuleActivity extends SherlockActivity {
 	/**
 	 * Called before onCreate and in intended for your modules to be initialized and loaded
 	 * into the ModuleManager.
+	 * @param moduleManager The current instance of the module manager.
 	 */
-	protected abstract void onLoadModules();
+	protected abstract void onLoadModules(ModuleManager moduleManager);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		onLoadModules();
+		onLoadModules(ModuleManager.getInstance(this));
 		
-		// call super
 		super.onCreate(savedInstanceState);
 
 		// notify the module manager of the event.
@@ -30,7 +30,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
-		// call super
 		super.onPostCreate(savedInstanceState);
 
 		// notify the module manager of the event.
@@ -39,7 +38,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		// call super
 		super.onSaveInstanceState(outState);
 
 		// notify the module manager of the event.
@@ -48,7 +46,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onPause() {
-		// call super
 		super.onPause();
 
 		// notify the module manager of the event.
@@ -57,7 +54,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onRestart() {
-		// call super
 		super.onRestart();
 
 		// notify the module manager of the event.
@@ -66,7 +62,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onDestroy() {
-		// call super
 		super.onDestroy();
 
 		// notify the module manager of the event.
@@ -75,7 +70,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 
 	@Override
 	protected void onResume() {
-		// call super
 		super.onResume();
 
 		// notify the module manager of the event.

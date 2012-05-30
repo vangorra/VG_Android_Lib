@@ -95,6 +95,11 @@ public final class ModuleManager {
 			throw new IllegalArgumentException("modName cannot be null.");
 		}
 		
+		// check for empty string
+		if(modName.length() <= 0) {
+			throw new IllegalArgumentException("modName cannot be an empty string.");
+		}
+		
 		// return if a module was returned.
 		return this.get(modName) != null;
 	} // method
@@ -111,6 +116,11 @@ public final class ModuleManager {
 		// check for null
 		if(modName == null) {
 			throw new IllegalArgumentException("modName cannot be null.");
+		}
+		
+		// check for empty string
+		if(modName.length() <= 0) {
+			throw new IllegalArgumentException("modName cannot be an empty string.");
 		}
 		
 		// check for null
@@ -184,6 +194,11 @@ public final class ModuleManager {
 			throw new IllegalArgumentException("modName cannot be null.");
 		}
 		
+		// check for empty string
+		if(modName.length() <= 0) {
+			throw new IllegalArgumentException("modName cannot be an empty string.");
+		}
+		
 		// get the container.
 		ModuleContainer mc = containers.get(modName);
 		
@@ -211,6 +226,11 @@ public final class ModuleManager {
 		// check for null
 		if(modName == null) {
 			throw new IllegalArgumentException("modName cannot be null.");
+		}
+		
+		// check for empty string
+		if(modName.length() <= 0) {
+			throw new IllegalArgumentException("modName cannot be an empty string.");
 		}
 		
 		// get the container.

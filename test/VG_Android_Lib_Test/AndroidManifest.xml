@@ -8,12 +8,19 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.vg.lib" />
+        android:targetPackage="com.vg.lib.test" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <uses-library android:name="android.test.runner" />
+    
+        <activity android:name=".activity.TestActivity"></activity>
+        
+        <meta-data android:name="var1" android:value="1" />
+	   	<meta-data android:name="var2" android:value="1.23" />
+	   	<meta-data android:name="var3" android:value="test" />
+	   	<meta-data android:name="var4" android:value="true" />
     </application>
-
 </manifest>

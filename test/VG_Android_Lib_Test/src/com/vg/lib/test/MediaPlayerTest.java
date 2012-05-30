@@ -45,12 +45,6 @@ public class MediaPlayerTest extends AndroidTestCase {
 		} catch (InterruptedException e) {
 			// ignore
 		}
-		try {
-			mp.start();
-			assertTrue("Should have failed to start audio.", false);
-		} catch (IllegalStateException ie) {
-			assertTrue(true);
-		}
 		
 		// create, play, set auto release
 		mp = MediaPlayer.createFromAsset(getContext(), "audio.mp3");
@@ -60,12 +54,6 @@ public class MediaPlayerTest extends AndroidTestCase {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// ignore
-		}
-		try {
-			mp.start();
-			assertTrue("Should have failed to start audio.", false);
-		} catch (IllegalStateException ie) {
-			assertTrue(true);
 		}
 	} // method
 } // class

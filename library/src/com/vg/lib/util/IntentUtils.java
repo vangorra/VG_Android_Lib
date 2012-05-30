@@ -19,11 +19,21 @@ public final class IntentUtils {
 	 * @param i The intent in question.
 	 * @return A list of ResolveInfo representing apps that support the intent.
 	 */
-	public static List<ResolveInfo> queryAppsSupportingIntent(Context context, Intent i) {
+	public static List<ResolveInfo> queryAppsSupportingIntent(Context context, Intent intent) {
+		// check for null
+		if(context == null) {
+			throw new IllegalArgumentException("context cannot be null");
+		}
+		
+		// check for null
+		if(intent == null) {
+			throw new IllegalArgumentException("intent cannot be null");
+		}
+		
 		// get the package manager.
 		PackageManager manager = context.getPackageManager();
 		
 		// query and return the results.
-		return manager.queryIntentActivities(i, 0);
+		return manager.queryIntentActivities(intent, 0);
 	} // method
 } // class

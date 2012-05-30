@@ -16,7 +16,7 @@ import android.graphics.Bitmap;
  */
 public class BitmapFactory extends android.graphics.BitmapFactory {
 	/**
-	 * Decode an image URL into a bitmap.
+	 * Decode an image URL into a bitmap. Keep in mind, your app will require internet permissions to use this.
 	 * @param url The http url of the image.
 	 * @return The decoded bitmap or null if the image data could not be decoded.
 	 */
@@ -31,7 +31,7 @@ public class BitmapFactory extends android.graphics.BitmapFactory {
 	} // method
 	
 	/**
-	 * Decode an image URL into a bitmap.
+	 * Decode an image URL into a bitmap. Keep in mind, your app will require internet permissions to use this.
 	 * @param url The http url of the image.
 	 * @param opts The options for decoding the image.
 	 * @return The decoded bitmap or null if the image data could not be decoded.
@@ -61,6 +61,7 @@ public class BitmapFactory extends android.graphics.BitmapFactory {
 		
 		// image could not be decoded.
 	    } catch(Exception e) {
+	    	e.printStackTrace();
 	    	return null;
 	    }
 	} // method

@@ -26,7 +26,7 @@ public final class ApplicationInfoUtils {
 		 * @param c The context of the activity.
 		 * @param name The name of the meta-data element.
 		 * @param defaultValue The value to return if the meta-data element is not set.
-		 * @return The value of the meta-data element or 0 if no value could be found or type mapping could not succeed.
+		 * @return The value of the meta-data element or the provided default value if no value could be found or type mapping could not succeed.
 		 */
 		public static int getIntegerMeta(Context c, String name, int defaultValue) {
 			// check for null
@@ -66,11 +66,55 @@ public final class ApplicationInfoUtils {
 		} // method
 		
 		/**
+		 * Get an integer meta-data value from the application's manifest file.
+		 * @param c The context of the activity.
+		 * @param name The name of the meta-data element.
+		 * @param defaultValue The value to return if the meta-data element is not set.
+		 * @return The value of the meta-data element or the provided default value if no value could be found or type mapping could not succeed.
+		 */
+		public static float getFloatMeta(Context c, String name, float defaultValue) {
+			// check for null
+			if(c == null) {
+				throw new IllegalArgumentException("context cannot be null.");
+			}
+			
+			//check for null
+			if(name == null) {
+				throw new IllegalArgumentException("name cannot be null.");
+			}
+			
+			// get the meta-data bundle.
+			Bundle data = getPackageMetaData(c);
+			
+			// return the default value if the meta-data bundle is not set.
+			if(data == null) {
+				return defaultValue;
+			}
+		
+			// get the object from the bundle.
+			Object ret = data.get(name);
+			
+			// value is not set, return the default.
+			if(ret == null) {
+				return defaultValue;
+			}
+			
+			// cast to an int.
+			try {
+				return (Float)ret;
+				
+			// failed to cast, this type cannot be converted, return default.
+			} catch (ClassCastException cce) {
+				return defaultValue;
+			}
+		} // method
+		
+		/**
 		 * Get a boolean meta-data value from the application's manifest file.
 		 * @param c The context of the activity.
 		 * @param name The name of the meta-data element.
 		 * @param defaultValue The value to return if the meta-data element is not set.
-		 * @return The value of the meta-data element.
+		 * @return The value of the meta-data element or the provided default value if no value could be found or type mapping could not succeed.
 		 */
 		public static boolean getBooleanMeta(Context c, String name, boolean defaultValue) {
 			// check for null
@@ -114,7 +158,7 @@ public final class ApplicationInfoUtils {
 		 * @param c The context of the activity.
 		 * @param name The name of the meta-data element.
 		 * @param defaultValue The value to return if the meta-data element is not set.
-		 * @return The value of the meta-data element.
+		 * @return The value of the meta-data element or the provided default value if no value could be found or type mapping could not succeed.
 		 */
 		public static String getStringMeta(Context c, String name, String defaultValue) {
 			// check for null

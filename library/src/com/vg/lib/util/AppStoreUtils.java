@@ -28,7 +28,7 @@ public final class AppStoreUtils {
 	/**
 	 * Mapping of the supported stores.
 	 */
-	private static final Store[] supportedStores = new Store[]{
+	public static final Store[] supportedStores = new Store[]{
 		Store.GOOGLE,
 		Store.AMAZON,
 	};
@@ -38,7 +38,7 @@ public final class AppStoreUtils {
 	 */
 	private static final String[] storeBaseUris = new String[] {
 		"market://",
-		"amzn://apps/",
+		"http://www.amazon.com/gp/mas/dl/android",
 	};
 	
 	/**
@@ -251,7 +251,7 @@ public final class AppStoreUtils {
 			
 		// handle amazon search uri
 		} else if(store == Store.AMAZON) {
-			return Uri.parse(storeUri + "android?s="+ query);
+			return Uri.parse(storeUri + "?s="+ query);
 		}
 		
 		return null;
@@ -272,11 +272,11 @@ public final class AppStoreUtils {
 		
 		// handle google details uri.
 		if(store == Store.GOOGLE) {
-			return Uri.parse(storeUri + "search?id="+ packageName);
+			return Uri.parse(storeUri + "details?id="+ packageName);
 			
 		// handle amazon details uri.
 		} else if(store == Store.AMAZON) {
-			return Uri.parse(storeUri + "android?id="+ packageName);
+			return Uri.parse(storeUri + "?p="+ packageName);
 		}
 		
 		return null;
