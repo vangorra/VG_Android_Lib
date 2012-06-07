@@ -65,4 +65,8 @@ In the example above just run:
 * Unckeck copy contents to workspace.
 * Import both ActionBarSherlock and VG_Android_Lib
 * In your project properties, click the Android tab and add VG_Android_Lib as a library.
+* Be sure to change your theme to be a sherlock theme. <application android:theme="Theme.Sherlock" ...>
 * Enjoy!
+
+## Theming
+This library makes use of the ActionBar Sherlock library. Sherlock comes complete with many features and options. Check out their site for more information.
