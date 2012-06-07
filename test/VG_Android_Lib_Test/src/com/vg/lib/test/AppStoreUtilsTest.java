@@ -21,7 +21,7 @@ public class AppStoreUtilsTest extends AndroidTestCase {
 		assertNotNull(availableStores);
 		
 		// this is on the emulator. There should be no available stores.
-		if(Build.PRODUCT.equals("google_sdk")) {
+		if(Build.PRODUCT.equals("google_sdk") || Build.PRODUCT.equals("sdk")) {
 			assertEquals(availableStores.length, 0);
 			
 		// this on a device. There should be at least 1 available store.

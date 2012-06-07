@@ -217,6 +217,11 @@ public final class AppStoreUtils {
 			appIntent = new Intent(Intent.ACTION_VIEW, getSearchUri(store, "test"));
 		}
 		
+		// didn't get a good intent.
+		if(appIntent == null) {
+			return false;
+		}
+		
 		// set the intent to open as its own task.
 		appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         
