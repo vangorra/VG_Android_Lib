@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="This activity should never be locked."
+	/>
+	<Button
+	    android:id="@+id/toggleLockButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Lock Toggle Button"
+    />
+	<Button
+	    android:id="@+id/toggleEnabledButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Enabled Toggle Button"
+    />
+	
+	<View
+	    android:layout_width="wrap_content"
+	    android:layout_height="30dip"
+    />
+	
+	<Button
+	    android:id="@+id/lockScreenActivityButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="LockSreenActivity"
+    />
+	
+	<Button
+	    android:id="@+id/normalLockableActivity1Button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="NormalLockableActivity1"
+    />
+	
+	<Button
+	    android:id="@+id/normalLockableActivity2Button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="NormalLockableActivity2"
+    />
+	
+</LinearLayout>

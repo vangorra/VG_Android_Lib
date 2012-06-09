@@ -311,7 +311,7 @@ public final class ModuleManager {
 		public void onActivityStart(Activity activity) {
 			// iterate trough the loaded modules and call the event.
 			for(ModuleContainer mc: containers.values()) {
-				mc.module.onActivityPause(activity);
+				mc.module.onActivityStart(activity);
 			}
 		} // method
 

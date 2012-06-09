@@ -3,13 +3,13 @@ package com.vg.lib.module;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 /**
  * Base activity used for module loading. This activity needs to be extended at some point for modules to be used.
  * @author vangorra
  */
-public abstract class ModuleActivity extends SherlockActivity {
+public abstract class ModulePreferenceActivity extends SherlockPreferenceActivity {
 
 	/**
 	 * Called before onCreate and in intended for your modules to be initialized and loaded
@@ -108,4 +108,4 @@ public abstract class ModuleActivity extends SherlockActivity {
 		ModuleManager.getInstance(this).getDispatcher().onActivityUserInteraction(this);
 	} // method
 	
-} // class
+}
