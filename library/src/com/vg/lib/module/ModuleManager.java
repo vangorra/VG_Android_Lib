@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.vg.lib.lang.reflect.MethodUtils;
 
@@ -19,6 +20,8 @@ import com.vg.lib.lang.reflect.MethodUtils;
  *
  */
 public final class ModuleManager {
+	private static final boolean DEBUG = false;
+	
 	private static ModuleManager moduleManager;
 	private HashMap<Class<? extends Module>,ModuleContainer> containers = new HashMap<Class<? extends Module>,ModuleContainer>();
 	private Context appContext;
@@ -337,20 +340,36 @@ public final class ModuleManager {
 						classesArr
 				);
 				
+				String argsStr = "";
+				for(Class<?> cls: classesArr) {
+					argsStr += cls == null? "null,": cls.getSimpleName()+",";
+				}
+				if(DEBUG)Log.v("TESTME", mc.module.getClass().getSimpleName() +"."+getInvokeMethodName(event)+"("+ argsStr +")");
+				
+				
 				// method could not be found,
 				if(method == null) {
-					return;
+					if(DEBUG)Log.v("TESTME", "\tmethod not found.");
+					continue;
 				}
 				
 				// invoke the method.
+				if(DEBUG)Log.v("TESTME", "\tinvoke.");
 				method.invoke(mc.module, params);
+				if(DEBUG)Log.v("TESTME", "\tinvoke successful.");
+				continue;
 				
 			} catch (IllegalArgumentException e) {
 				// ignore
+				if(DEBUG)Log.v("TESTME", "\tinvoke failed."+e.getMessage());
+				
 			} catch (IllegalAccessException e) {
 				// ignore
+				if(DEBUG)Log.v("TESTME", "\tinvoke failed."+e.getMessage());
+				
 			} catch (InvocationTargetException e) {
 				// ignore
+				if(DEBUG)Log.v("TESTME", "\tinvoke failed."+e.getMessage());
 			}
 		} // for
 	} // method

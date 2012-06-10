@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.vg.lib.module.Module;
 
@@ -70,6 +71,7 @@ public class AppLockModule implements Module {
 	private static final String IS_LOCKED_PREF_KEY = "VGMod.AppLock.isLocked";
 	private static final String IS_ENABLED_PREF_KEY = "VGMod.AppLock.isEnabled";
 	private static final int LOCKSCREEN_ACTIVITY_REQUEST_CODE = 805843653;
+	private static final boolean DEBUG = false;
 	
 	/*
 	 * Module load arguments.
@@ -139,11 +141,14 @@ public class AppLockModule implements Module {
 
 	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
 		// set the prefs object.
+		if(DEBUG)Log.v("TESTME", "onInvokeActivityOnCreate: "+activity.getClass().getSimpleName());
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 	} // method
 
 	public void onInvokeActivityOnActivityResult(Activity activity, int requestCode,
 			int resultCode, Intent data) {
+		if(DEBUG)Log.v("TESTME", "onInvokeActivityOnActivityResult: "+activity.getClass().getSimpleName());
+		
 		// unlock successful, set unlocked.
 		if(requestCode == LOCKSCREEN_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 			setIsLocked(false);
@@ -160,6 +165,8 @@ public class AppLockModule implements Module {
 	} // method
 	
 	public void onInvokeActivityOnResume(Activity activity) {
+		if(DEBUG)Log.v("TESTME", "onInvokeActivityOnResume: "+activity.getClass().getSimpleName());
+		
 		mIsInAOnResume = true;
 		
 		// this activity is loading from background.
@@ -178,10 +185,14 @@ public class AppLockModule implements Module {
 	}
 
 	public void onInvokeActivityOnPause(Activity activity) {
+		if(DEBUG)Log.v("TESTME", "onInvokeActivityOnPause: "+activity.getClass().getSimpleName());
+		
 		mIsInAOnPause = true;
 	}
 	
 	public void onInvokeActivityOnStop(Activity activity) {
+		if(DEBUG)Log.v("TESTME", "onInvokeActivityOnStop: "+activity.getClass().getSimpleName());
+		
 		boolean wentToBackground = this.mIsInAOnPause && !this.mIsInAOnResume;
 		
 		this.mIsInAOnPause = false;

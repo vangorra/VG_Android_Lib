@@ -2,6 +2,7 @@ package com.vg.lib.module;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockActivity;
 

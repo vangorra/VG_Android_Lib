@@ -6,6 +6,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -92,6 +94,64 @@ public class MethodUtilsTest extends AndroidTestCase {
 		Assert.assertTrue(
 			method.getParameterTypes()[0] == ArrayList.class
 		);
+		
+		
+		
+		Assert.assertNotNull(MethodUtils.findClosestMethod(
+				MethodUtilsTest.class, 
+				"onInvokeActivityOnActivityResult", 
+				new Class<?>[]{
+					null,
+					null,
+					null,
+					null,
+				}
+		));
+		
+		Assert.assertNotNull(MethodUtils.findClosestMethod(
+				MethodUtilsTest.class, 
+				"onInvokeActivityOnActivityResult", 
+				new Class<?>[]{
+					Activity.class,
+					null,
+					null,
+					null,
+				}
+		));
+		
+		Assert.assertNotNull(MethodUtils.findClosestMethod(
+				MethodUtilsTest.class, 
+				"onInvokeActivityOnActivityResult", 
+				new Class<?>[]{
+					Activity.class,
+					int.class,
+					null,
+					null,
+				}
+		));
+		
+
+		Assert.assertNotNull(MethodUtils.findClosestMethod(
+				MethodUtilsTest.class, 
+				"onInvokeActivityOnActivityResult", 
+				new Class<?>[]{
+					Activity.class,
+					int.class,
+					int.class,
+					null,
+				}
+		));
+		
+		Assert.assertNotNull(MethodUtils.findClosestMethod(
+				MethodUtilsTest.class, 
+				"onInvokeActivityOnActivityResult", 
+				new Class<?>[]{
+					Activity.class,
+					int.class,
+					int.class,
+					Intent.class,
+				}
+		));
 	}
 	
 	public void thisIsMySuperTestMethod(String str1, int int1) {
@@ -103,6 +163,11 @@ public class MethodUtilsTest extends AndroidTestCase {
 	}
 	
 	public void anotherMethod(List list) {
+		
+	}
+	
+	public void onInvokeActivityOnActivityResult(Activity activity, int requestCode,
+			int resultCode, Intent data) {
 		
 	}
 	
