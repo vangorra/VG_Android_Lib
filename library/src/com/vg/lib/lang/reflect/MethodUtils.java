@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class MethodUtils {
+	private static final boolean DEBUG = false;
+	
 	private static final MethodMatchComparer methodMatchComparer = new MethodMatchComparer();
 	
 	/**
@@ -71,6 +73,29 @@ public class MethodUtils {
 		return method;
 	} // method
 	
+	
+	private static HashMap<Class<?>,Class<?>> primitiveObjectMap = new HashMap<Class<?>, Class<?>>();
+	private static void initPrimitiveObjectMap() {
+		if(primitiveObjectMap.size() > 0) {
+			return; 
+		}
+		
+		primitiveObjectMap.put(Byte.class, byte.class);
+		primitiveObjectMap.put(Short.class, short.class);
+		primitiveObjectMap.put(Integer.class, int.class);
+		primitiveObjectMap.put(Long.class, long.class);
+		primitiveObjectMap.put(Float.class, float.class);
+		primitiveObjectMap.put(Double.class, double.class);
+		primitiveObjectMap.put(Boolean.class, boolean.class);
+		primitiveObjectMap.put(Character.class, char.class);
+	}
+
+	public static Class<?> getPrimitiveEquivlent(Class<?> cls) {
+		initPrimitiveObjectMap();
+		return primitiveObjectMap.get(cls);
+	}
+	
+	
 	/**
 	 * Worker method for findClosestMethod.
 	 * @param classType
@@ -110,22 +135,30 @@ public class MethodUtils {
 			
 			// check the type of the method parameters.
 			boolean possibleMatch = true;
-			int nullCount = 0;
+			MethodMatch methodMatch = new MethodMatch(method);
 			for(int i = 0; i < methodParameterTypes.length; ++i) {
 				Class<?> methodParamType = methodParameterTypes[i];
 				Class<?> targetParamType = targetParamTypes[i];
 				
 				// target param is null, cannot compare, but take that into account.
 				if(targetParamType == null) {
-					++nullCount;
+					++methodMatch.nullCount;
 					continue;
 				}
 				
 				// the class of the param and the target param don't match, this is not the method we are looking for.
 				while(targetParamType != null) {
+					// not an exact match.
 					if(targetParamType == methodParamType) {
 						break;
 					}
+					
+					// try to find a primitave/object map to match.
+					if(methodParamType.isPrimitive() && methodParamType == getPrimitiveEquivlent(targetParamType)) {
+						++methodMatch.primitiveMapCount;
+						break;
+					}
+					
 					targetParamType = targetParamType.getSuperclass();
 				}
 				
@@ -141,10 +174,7 @@ public class MethodUtils {
 			}
 			
 			// found a possible match, add it to the list of possible matches.
-			possibleMatches.add(new MethodMatch(
-					method,
-					nullCount
-			));
+			possibleMatches.add(methodMatch);
 		} // for
 		
 		// get the number of matches.
@@ -174,10 +204,16 @@ public class MethodUtils {
 	private static class MethodMatch {
 		public Method method;
 		public int nullCount;
+		public int primitiveMapCount;
 		
-		public MethodMatch(Method method, int nullCount) {
+		public MethodMatch(Method method) {
+			this.method = method;
+		}
+		
+		public MethodMatch(Method method, int nullCount, int primitiveMapCount) {
 			this.method = method;
 			this.nullCount = nullCount;
+			this.primitiveMapCount = primitiveMapCount;
 		}
 	} // class
 	
@@ -189,11 +225,15 @@ public class MethodUtils {
 	private static class MethodMatchComparer implements Comparator<MethodMatch> {
 		@Override
 		public int compare(MethodMatch lhs, MethodMatch rhs) {
-			if(lhs.nullCount < rhs.nullCount) {
+			// null count is less accurate and should be treated as such.
+			int lhsVal = (lhs.nullCount * 2) + lhs.primitiveMapCount;
+			int rhsVal = (rhs.nullCount * 2) + rhs.primitiveMapCount;
+			
+			if(lhsVal < rhsVal) {
 				return -1;
 			}
 			
-			if(lhs.nullCount > rhs.nullCount) {
+			if(lhsVal > rhsVal) {
 				return 1;
 			}
 			

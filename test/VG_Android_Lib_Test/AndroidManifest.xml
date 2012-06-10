@@ -16,7 +16,7 @@
         android:label="@string/app_name" >
         <uses-library android:name="android.test.runner" />
     
-        <activity android:name=".activity.TestActivity"></activity>
+        <activity android:name=".activity.ModuleActivityImpl"></activity>
         
         <meta-data android:name="var1" android:value="1" />
 	   	<meta-data android:name="var2" android:value="1.23" />

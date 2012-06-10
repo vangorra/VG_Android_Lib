@@ -1,8 +1,11 @@
 package com.vg.lib.test.module;
 
+import junit.framework.Assert;
+
 import com.vg.lib.module.ModuleManager;
 import com.vg.lib.test.modules.testmodule.TestModule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.test.AndroidTestCase;
 
@@ -162,5 +165,21 @@ public class ModuleManagerTest extends AndroidTestCase {
 		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
 	}
 	
-	
+	public void testInvoke() {
+		ModuleManager mm = ModuleManager.getInstance(getContext());
+		
+		mm
+			.load(
+				TestModule.class,
+				new Bundle()
+			);
+		
+		TestModule mod = mm.get(TestModule.class);
+		
+		mm.invoke("ActivityOnResume");
+		Assert.assertTrue(mod.isSimpleMethodCalled());
+		
+		mm.invoke("ActivityOnActivityResult", null, 0, 0, new Intent());
+		Assert.assertTrue(mod.isComplicatedMethodCalled());
+	}
 }
