@@ -7,7 +7,6 @@ Goto your project properties and add VGMod_OrmLite as a library.
 		@Override
 		protected abstract void onLoadModules(ModuleManager moduleManager) {
 			moduleManager.load(
-				"OrmLite",
 				OrmLiteModule.class,
 				BundleBuilder.create()
 					.putString(OrmLiteModule.DATABASE_NAME, "main.db")

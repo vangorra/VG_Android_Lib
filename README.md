@@ -30,7 +30,6 @@ Have your activity extend ModuleActivity:
 		@Override
 		protected abstract void onLoadModules(ModuleManager moduleManager) {
 			moduleManager.load(
-				"GoogleAnalytics",
 				GoogleAnalyticsModule.class,
 				BundleBuilder.create()
 					.putString(GoogleAnalyticsModule.TRACKER_ID, "my tracker code")

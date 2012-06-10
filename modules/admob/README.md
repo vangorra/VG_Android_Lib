@@ -8,7 +8,6 @@ Create your activity:
 		@Override
 		protected abstract void onLoadModules(ModuleManager moduleManager) {
 			moduleManager.load(
-				"Admob",
 				AdmobModule.class,
 				BundleBuilder.create()
 					.putString(AdmobModule.KEY, "This is my key")
