@@ -1,7 +1,6 @@
 package com.vg.lib.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class FileUtils {
     /**

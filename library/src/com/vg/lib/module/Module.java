@@ -1,8 +1,6 @@
 package com.vg.lib.module;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -12,7 +10,8 @@ import android.os.Bundle;
  * @author vangorra
  *
  */
-public interface Module extends ModuleHooks {
+public interface Module {
+	public static final ModuleInfo INFO = new ModuleInfo() {};
 	
 	/**
 	 * Called when a module instance is being loaded.

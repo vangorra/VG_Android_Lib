@@ -5,9 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.j256.ormlite.support.ConnectionSource;
-import com.vg.lib.module.ModuleImpl;
+import com.vg.lib.module.Module;
 
-public class OrmLiteModule extends ModuleImpl {
+public class OrmLiteModule implements Module {
 	public static final String DATABASE_NAME = "databaseName";
 	public static final String DATABASE_VERSION = "databaseVersion";
 	
@@ -133,8 +133,7 @@ public class OrmLiteModule extends ModuleImpl {
 
 	}
 
-	@Override
-	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
+	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
 		if(loadCount == 0) {
 			this.createHelper();
 		}
@@ -145,8 +144,7 @@ public class OrmLiteModule extends ModuleImpl {
 		}*/
 	}
 
-	@Override
-	public void onActivityDestroy(Activity activity) {
+	public void onInvokeActivityOnDestroy(Activity activity) {
 		loadCount--;
 		
 		if(loadCount <= 0) {

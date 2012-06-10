@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import com.vg.lib.module.ModuleActivity;
 import com.vg.lib.module.ModuleManager;
-import com.vg.lib.os.BundleBuilder;
-import com.vg.lib.test.modules.testmodule.TestModule;
 
 public class ModuleActivityImpl extends ModuleActivity {
 	@Override

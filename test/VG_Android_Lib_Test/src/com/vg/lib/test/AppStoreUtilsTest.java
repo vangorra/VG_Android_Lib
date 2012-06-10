@@ -1,11 +1,11 @@
 package com.vg.lib.test;
 
-import com.vg.lib.util.AppStoreUtils;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.test.AndroidTestCase;
+
+import com.vg.lib.util.AppStoreUtils;
 
 public class AppStoreUtilsTest extends AndroidTestCase {
 	public void testGetAvailableStores() {

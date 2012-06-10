@@ -2,12 +2,12 @@ package com.vg.lib.test;
 
 import java.util.List;
 
-import com.vg.lib.test.activity.TestActivity;
-import com.vg.lib.util.IntentUtils;
-
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.test.AndroidTestCase;
+
+import com.vg.lib.test.activity.TestActivity;
+import com.vg.lib.util.IntentUtils;
 
 public class IntentUtilsTest extends AndroidTestCase {
 	public void testQueryAppsSupportingIntent() {

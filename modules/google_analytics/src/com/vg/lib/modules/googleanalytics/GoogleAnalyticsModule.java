@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import com.vg.lib.module.ModuleImpl;
+import com.vg.lib.module.Module;
 
 /**
  * Provides automatic Google Analytics support to your activity.
@@ -17,7 +17,7 @@ import com.vg.lib.module.ModuleImpl;
  * @author vangorra
  *
  */
-public class GoogleAnalyticsModule extends ModuleImpl {
+public class GoogleAnalyticsModule implements Module {
 	/**
 	 * Argument specifying the google analytics tracker id (key) to use.
 	 * This is required.
@@ -76,10 +76,7 @@ public class GoogleAnalyticsModule extends ModuleImpl {
 		// nothing to do here.
 	} // method
 
-	@Override
-	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
-		super.onActivityCreate(activity, savedInstanceState);
-		
+	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
 		// initialize a new tracker.
 		this.tracker = GoogleAnalyticsTracker.getInstance();
 		
@@ -93,10 +90,7 @@ public class GoogleAnalyticsModule extends ModuleImpl {
 		this.tracker.dispatch();		
 	} //method
 
-	@Override
-	public void onActivityDestroy(Activity activity) {
-		super.onActivityDestroy(activity);
-		
+	public void onInvokeActivityOnDestroy(Activity activity) {
 		// if the tracker is set.
 		if(this.tracker != null) {
 			// tell it the session has stopped.

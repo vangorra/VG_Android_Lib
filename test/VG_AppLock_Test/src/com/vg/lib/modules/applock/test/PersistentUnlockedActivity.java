@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.vg.lib.module.ModuleActivity;
 import com.vg.lib.module.ModuleManager;
 import com.vg.lib.modules.applock.AppLockModule;
 
@@ -33,7 +31,7 @@ public class PersistentUnlockedActivity extends BaseActivity implements OnClickL
 	}
 
 	private void updateModuleStatus() {
-		AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(MODULE_APPLOCK);
+		AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(AppLockModule.class);
 
 		Button lockButton = (Button)this.findViewById(R.id.toggleLockButton);
 		if(mod.getIsLocked()) {
@@ -67,13 +65,13 @@ public class PersistentUnlockedActivity extends BaseActivity implements OnClickL
 			return;
 		
 		} else if(vId == R.id.toggleLockButton) {
-			AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(MODULE_APPLOCK);
+			AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(AppLockModule.class);
 			mod.setIsLocked(!mod.getIsLocked());
 			updateModuleStatus();
 			return;
 			
 		} else if(vId == R.id.toggleEnabledButton) {
-			AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(MODULE_APPLOCK);
+			AppLockModule mod = (AppLockModule)ModuleManager.getInstance(this).get(AppLockModule.class);
 			mod.setIsEnabled(!mod.getIsEnabled());
 			updateModuleStatus();
 			return;

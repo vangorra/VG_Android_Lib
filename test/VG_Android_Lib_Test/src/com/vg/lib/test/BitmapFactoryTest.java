@@ -1,9 +1,5 @@
 package com.vg.lib.test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 
 import com.vg.lib.graphics.BitmapFactory;

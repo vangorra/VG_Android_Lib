@@ -3,9 +3,9 @@ package com.vg.lib.test;
 import java.io.File;
 import java.io.IOException;
 
-import com.vg.lib.util.AssetFileUtils;
-
 import android.test.AndroidTestCase;
+
+import com.vg.lib.util.AssetFileUtils;
 
 public class AssetFileUtilsTest extends AndroidTestCase {
 	File destPath;

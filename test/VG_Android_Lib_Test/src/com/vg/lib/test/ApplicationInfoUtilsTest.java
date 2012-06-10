@@ -1,8 +1,8 @@
 package com.vg.lib.test;
 
-import com.vg.lib.util.ApplicationInfoUtils;
-
 import android.test.AndroidTestCase;
+
+import com.vg.lib.util.ApplicationInfoUtils;
 
 public class ApplicationInfoUtilsTest extends AndroidTestCase {
 	public void testMetaDataGetInt() {

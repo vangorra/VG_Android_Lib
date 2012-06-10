@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
-import com.vg.lib.module.ModuleImpl;
+import com.vg.lib.module.Module;
 
 /**
  * Provides support for admob ads. By default this module will search your
@@ -20,7 +20,7 @@ import com.vg.lib.module.ModuleImpl;
  * @author vangorra
  *
  */
-public class AdmobModule extends ModuleImpl {
+public class AdmobModule implements Module {
 	/**
 	 * Argument specifying the api key to use.
 	 * Required for loading this module.
@@ -119,10 +119,7 @@ public class AdmobModule extends ModuleImpl {
 		// nothing to do here.
 	}
 
-	@Override
-	public void onActivityPostCreate(Activity activity, Bundle savedInstanceState) {
-		super.onActivityPostCreate(activity, savedInstanceState);
-		
+	public void onInvokeActivityOnPostCreate(Activity activity, Bundle savedInstanceState) {
 		// query for the ad wrapper from the activity's layout.
 		View adsWrapper = activity.findViewById(this.adsWrapperRes);
 		

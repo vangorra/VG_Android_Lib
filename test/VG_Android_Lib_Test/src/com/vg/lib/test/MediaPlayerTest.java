@@ -1,10 +1,10 @@
 package com.vg.lib.test;
 
-import com.vg.lib.media.MediaPlayer;
-import com.vg.lib.util.MediaPlayerUtils;
-
 import android.media.MediaPlayer.OnCompletionListener;
 import android.test.AndroidTestCase;
+
+import com.vg.lib.media.MediaPlayer;
+import com.vg.lib.util.MediaPlayerUtils;
 
 public class MediaPlayerTest extends AndroidTestCase {
 	public void testCreateFromAsset() {

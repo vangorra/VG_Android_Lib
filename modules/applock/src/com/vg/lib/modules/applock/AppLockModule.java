@@ -1,22 +1,15 @@
 package com.vg.lib.modules.applock;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Debug;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.vg.lib.module.ModuleImpl;
+import com.vg.lib.module.Module;
 
 /**
  * Facilitates locking and unlocking of an app based on inactivity or loss of focus.
@@ -47,7 +40,7 @@ import com.vg.lib.module.ModuleImpl;
  * @author vangorra
  *
  */
-public class AppLockModule extends ModuleImpl {
+public class AppLockModule implements Module {
 	/**
 	 * Required: The string of the class of the activity that will be used as a lock/unlock screen.
 	 * <p>The activity should return a resultCode of Activity.RESULT_OK to specify that
@@ -76,7 +69,6 @@ public class AppLockModule extends ModuleImpl {
 	 */
 	private static final String IS_LOCKED_PREF_KEY = "VGMod.AppLock.isLocked";
 	private static final String IS_ENABLED_PREF_KEY = "VGMod.AppLock.isEnabled";
-	private static final String TAG = AppLockModule.class.getName();
 	private static final int LOCKSCREEN_ACTIVITY_REQUEST_CODE = 805843653;
 	
 	/*
@@ -145,19 +137,13 @@ public class AppLockModule extends ModuleImpl {
 		
 	}
 
-	@Override
-	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
-		super.onActivityCreate(activity, savedInstanceState);
-		
+	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
 		// set the prefs object.
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 	} // method
 
-	@Override
-	public void onActivityResult(Activity activity, int requestCode,
+	public void onInvokeActivityOnActivityResult(Activity activity, int requestCode,
 			int resultCode, Intent data) {
-		super.onActivityResult(activity, requestCode, resultCode, data);
-		
 		// unlock successful, set unlocked.
 		if(requestCode == LOCKSCREEN_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 			setIsLocked(false);
@@ -173,10 +159,7 @@ public class AppLockModule extends ModuleImpl {
 		}
 	} // method
 	
-	@Override
-	public void onActivityResume(Activity activity) {
-		super.onActivityResume(activity);
-		
+	public void onInvokeActivityOnResume(Activity activity) {
 		mIsInAOnResume = true;
 		
 		// this activity is loading from background.
@@ -194,16 +177,11 @@ public class AppLockModule extends ModuleImpl {
 		}
 	}
 
-	@Override
-	public void onActivityPause(Activity activity) {
-		super.onActivityPause(activity);
+	public void onInvokeActivityOnPause(Activity activity) {
 		mIsInAOnPause = true;
 	}
 	
-	@Override
-	public void onActivityStop(Activity activity) {
-		super.onActivityStop(activity);
-		
+	public void onInvokeActivityOnStop(Activity activity) {
 		boolean wentToBackground = this.mIsInAOnPause && !this.mIsInAOnResume;
 		
 		this.mIsInAOnPause = false;
@@ -221,6 +199,7 @@ public class AppLockModule extends ModuleImpl {
 	 * @param classPath The class path of the activity.
 	 * @return A Class object or null of something went wrong.
 	 */
+	@SuppressWarnings("unchecked")
 	private static Class<? extends Activity> getActivityClass(String classPath) {
 		try {
 			// return the class.

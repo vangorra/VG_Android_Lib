@@ -8,13 +8,6 @@ import android.test.AndroidTestCase;
 
 public class ModuleManagerTest extends AndroidTestCase {
 	public void testGetInstance() {
-		/*try {
-			ModuleManager.getInstance();
-			assertTrue(false);
-		} catch (IllegalStateException e) {
-			assertTrue(true);
-		}*/
-		
 		try {
 			assertNotNull(ModuleManager.getInstance(null));
 			assertTrue(false);
@@ -23,25 +16,13 @@ public class ModuleManagerTest extends AndroidTestCase {
 		}
 		
 		assertNotNull(ModuleManager.getInstance(getContext()));
-		assertNotNull(ModuleManager.getInstance());
 		assertNotNull(ModuleManager.getInstance(getContext()));
 	}
 	
 	public void testIsLoaded() {
-		String moduleName = "isLoadedMod";
-		
 		try {
 			assertTrue(
-				ModuleManager.getInstance().isLoaded(null)
-			);
-			assertTrue(false);
-		} catch (IllegalArgumentException e) {
-			assertTrue(true);
-		}
-		
-		try {
-			assertTrue(
-				ModuleManager.getInstance().isLoaded("")
+				ModuleManager.getInstance(getContext()).isLoaded(null)
 			);
 			assertTrue(false);
 		} catch (IllegalArgumentException e) {
@@ -51,27 +32,23 @@ public class ModuleManagerTest extends AndroidTestCase {
 		assertTrue(
 			ModuleManager.getInstance(getContext())
 				.load(
-					moduleName, 
 					TestModule.class, 
 					new Bundle()
 				)
 		);
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext()).isLoaded(moduleName)
+			ModuleManager.getInstance(getContext()).isLoaded(TestModule.class)
 		);
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(moduleName));
+		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
 	}
 	
 	public void testLoad() {
-		String moduleName = "loadMod";
-		
 		try {
 			assertTrue(
 				ModuleManager.getInstance(getContext())
 					.load(
-						null,
 						null,
 						null
 					)
@@ -85,7 +62,6 @@ public class ModuleManagerTest extends AndroidTestCase {
 			assertTrue(
 				ModuleManager.getInstance(getContext())
 					.load(
-						"",
 						null,
 						null
 					)
@@ -99,7 +75,6 @@ public class ModuleManagerTest extends AndroidTestCase {
 			assertTrue(
 				ModuleManager.getInstance(getContext())
 					.load(
-						moduleName,
 						null,
 						null
 					)
@@ -113,7 +88,6 @@ public class ModuleManagerTest extends AndroidTestCase {
 			assertTrue(
 				ModuleManager.getInstance(getContext())
 					.load(
-						moduleName,
 						TestModule.class,
 						null
 					)
@@ -126,7 +100,6 @@ public class ModuleManagerTest extends AndroidTestCase {
 		assertTrue(
 			ModuleManager.getInstance(getContext())
 				.load(
-					moduleName,
 					TestModule.class,
 					new Bundle()
 				)
@@ -135,18 +108,15 @@ public class ModuleManagerTest extends AndroidTestCase {
 		assertTrue(
 			ModuleManager.getInstance(getContext())
 				.load(
-					moduleName,
 					TestModule.class,
 					new Bundle()
 				)
 		);
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(moduleName));
+		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
 	}
 	
 	public void testUnload() {
-		String moduleName = "unloadMod";
-		
 		try {
 			ModuleManager.getInstance(getContext()).unload(null);
 			assertTrue(false);
@@ -154,34 +124,24 @@ public class ModuleManagerTest extends AndroidTestCase {
 			assertTrue(true);
 		}
 		
-		try {
-			ModuleManager.getInstance(getContext()).unload("");
-			assertTrue(false);
-		} catch (IllegalArgumentException e) {
-			assertTrue(true);
-		}
-		
 		assertFalse(
-			ModuleManager.getInstance(getContext()).unload(moduleName)
+			ModuleManager.getInstance(getContext()).unload(TestModule.class)
 		);		
 		
 		assertTrue(
 			ModuleManager.getInstance(getContext())
 				.load(
-					moduleName,
 					TestModule.class,
 					new Bundle()
 				)
 		);
 		
 		assertTrue(
-			ModuleManager.getInstance().unload(moduleName)
+			ModuleManager.getInstance(getContext()).unload(TestModule.class)
 		);
 	}
 	
 	public void testGet() {
-		String moduleName = "getMod";
-		
 		try {
 			ModuleManager.getInstance(getContext()).get(null);
 			assertTrue(false);
@@ -189,25 +149,17 @@ public class ModuleManagerTest extends AndroidTestCase {
 			assertTrue(true);
 		}
 		
-		try {
-			ModuleManager.getInstance(getContext()).get("");
-			assertTrue(false);
-		} catch (IllegalArgumentException e) {
-			assertTrue(true);
-		}
-		
-		assertNull(ModuleManager.getInstance(getContext()).get(moduleName));
+		assertNull(ModuleManager.getInstance(getContext()).get(TestModule.class));
 
 		ModuleManager.getInstance(getContext())
 			.load(
-				moduleName,
 				TestModule.class,
 				new Bundle()
 			);
 		
-		assertNotNull(ModuleManager.getInstance(getContext()).get(moduleName));
+		assertNotNull(ModuleManager.getInstance(getContext()).get(TestModule.class));
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(moduleName));
+		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
 	}
 	
 	

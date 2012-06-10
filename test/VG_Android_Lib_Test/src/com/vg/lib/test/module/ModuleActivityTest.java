@@ -19,7 +19,7 @@ public class ModuleActivityTest extends ActivityInstrumentationTestCase2<ModuleA
 	public void testEventDispatch() {
 		ModuleActivityImpl activity = getActivity();
 		ModuleManager.getInstance(activity)
-			.load("me", this.getClass(), new Bundle())
+			.load(this.getClass(), new Bundle())
 		;
 		
 		callRecieved = false;
@@ -67,60 +67,48 @@ public class ModuleActivityTest extends ActivityInstrumentationTestCase2<ModuleA
 		assertTrue(callRecieved);
 	}
 	
-	@Override
-	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
+	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityPostCreate(Activity activity,
-			Bundle savedInstanceState) {
+	public void onInvokeActivityOnPostCreate(Activity activity, Bundle savedInstanceState) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+	public void onInvokeActivityOnSaveInstanceState(Activity activity, Bundle outState) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityPause(Activity activity) {
+	public void onInvokeActivityOnPause(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityRestart(Activity activity) {
+	public void onInvokeActivityOnRestart(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityDestroy(Activity activity) {
+	public void onInvokeActivityOnDestroy(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityResume(Activity activity) {
+	public void onInvokeActivityOnResume(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityStart(Activity activity) {
+	public void onInvokeActivityOnStart(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityStop(Activity activity) {
+	public void onInvokeActivityOnStop(Activity activity) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityResult(Activity activity, int requestCode,
+	public void onInvokeActivityOnActivityResult(Activity activity, int requestCode,
 			int resultCode, Intent data) {
 		callRecieved = true;
 	}
 
-	@Override
-	public void onActivityUserInteraction(Activity activity) {
+	public void onInvokeActivityOnUserInteraction(Activity activity) {
 		callRecieved = true;
 	}
 

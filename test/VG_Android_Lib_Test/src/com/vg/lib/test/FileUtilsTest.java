@@ -1,14 +1,10 @@
 package com.vg.lib.test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-
-import com.vg.lib.util.FileUtils;
 
 import android.test.AndroidTestCase;
+
+import com.vg.lib.util.FileUtils;
 
 public class FileUtilsTest extends AndroidTestCase {
 	File baseDir;

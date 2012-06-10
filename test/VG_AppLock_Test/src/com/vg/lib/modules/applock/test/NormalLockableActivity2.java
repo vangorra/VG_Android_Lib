@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.vg.lib.module.ModuleActivity;
-import com.vg.lib.module.ModuleManager;
-
 public class NormalLockableActivity2 extends BaseActivity implements OnClickListener {
 
 	@Override
