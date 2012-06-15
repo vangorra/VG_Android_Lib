@@ -330,9 +330,13 @@ public final class ModuleManager {
 			classesArr[i] = params[i] == null? null: params[i].getClass();
 		}
 		
+		if(DEBUG) Log.v("TESTME", "Invoking "+ event +", "+ params.toString());
+		
 		// iterate trough the loaded modules and call the event.
 		for(ModuleContainer mc: getOrderedContainers()) {
 			try {
+				if(DEBUG) Log.v("TESTME", "ModuleContainer.Module: "+ mc.module.getClass().getSimpleName());
+				
 				// attempt to get the method and invoke.
 				Method method = MethodUtils.findClosestMethod(
 						mc.module.getClass(),
@@ -340,12 +344,14 @@ public final class ModuleManager {
 						classesArr
 				);
 				
-				String argsStr = "";
-				for(Class<?> cls: classesArr) {
-					argsStr += cls == null? "null,": cls.getSimpleName()+",";
+				if(DEBUG) {
+					String argsStr = "";
+					for(Class<?> cls: classesArr) {
+						argsStr += cls == null? "null,": cls.getSimpleName()+",";
+					}
+					argsStr = argsStr.substring(0, argsStr.length()-1);
+					Log.v("TESTME", mc.module.getClass().getSimpleName() +"."+getInvokeMethodName(event)+"("+ argsStr +")");
 				}
-				if(DEBUG)Log.v("TESTME", mc.module.getClass().getSimpleName() +"."+getInvokeMethodName(event)+"("+ argsStr +")");
-				
 				
 				// method could not be found,
 				if(method == null) {
