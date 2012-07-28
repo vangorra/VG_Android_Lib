@@ -90,7 +90,7 @@ public class AppLockModule implements Module {
 	private long mWentToBackgroundTime = 0;
 	
 	@Override
-	public void load(Context context, Bundle args) {
+	public void load(Bundle args) {
 		/*
 		 * Get the lockscreen class.
 		 */

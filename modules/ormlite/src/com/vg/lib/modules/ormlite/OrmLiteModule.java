@@ -3,16 +3,18 @@ package com.vg.lib.modules.ormlite;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.j256.ormlite.support.ConnectionSource;
 import com.vg.lib.module.Module;
 
 public class OrmLiteModule implements Module {
+	private static final String TAG = OrmLiteModule.class.getSimpleName();
+	private static final int DEBUG = 0;
 	public static final String DATABASE_NAME = "databaseName";
 	public static final String DATABASE_VERSION = "databaseVersion";
 	
 	private volatile DatabaseOpenHelper helper;
-	private Context context;
 	private int loadCount = 0;
 	private String databaseName;
 	private int databaseVersion;
@@ -33,6 +35,7 @@ public class OrmLiteModule implements Module {
 		} else {
 			return helper;
 		}*/
+		if(DEBUG > 0) Log.d(TAG, "getHelper: "+ this.helper);
 		return this.helper;
 	}
 
@@ -74,18 +77,19 @@ public class OrmLiteModule implements Module {
 	}*/
 	
 	@Override
-	public void load(Context context, Bundle args) {
-		// check for null
+	public void load(Bundle args) {
+		if(DEBUG > 0) Log.d(TAG, "load: "+ args);
+		/*// check for null
 		if(context == null) {
 			throw new IllegalArgumentException("context cannot be null");
-		}
+		}*/
 
 		// check for null
 		if(args == null) {
 			throw new IllegalArgumentException("args cannot be null");
 		}
 		
-		this.context = context;
+		//this.context = context;
 		
 		/*
 		 * Set the database name.
@@ -117,10 +121,11 @@ public class OrmLiteModule implements Module {
 		//created = true;
 	}
 	
-	private void createHelper() {
+	private void createHelper(Context context) {
 		if(this.helper == null) {
+			if(DEBUG > 0) Log.d(TAG, "createHelper: "+ context);
 			this.helper = new DatabaseOpenHelper(
-					context,
+					context.getApplicationContext(),
 					databaseName,
 					null,
 					databaseVersion
@@ -134,10 +139,11 @@ public class OrmLiteModule implements Module {
 	}
 
 	public void onInvokeActivityOnCreate(Activity activity, Bundle savedInstanceState) {
-		if(loadCount == 0) {
-			this.createHelper();
-		}
+		if(DEBUG > 0) Log.d(TAG, "onInvokeActivityOnCreate: "+ activity);
+		
+		this.createHelper(activity);
 		loadCount++;
+		
 		/*if (helper == null) {
 			helper = getHelperInternal(this.context);
 			created = true;

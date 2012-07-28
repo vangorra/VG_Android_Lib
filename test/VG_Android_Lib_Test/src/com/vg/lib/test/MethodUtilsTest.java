@@ -2,24 +2,75 @@ package com.vg.lib.test;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import junit.framework.Assert;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.vg.lib.lang.reflect.MethodUtils;
 
 public class MethodUtilsTest extends AndroidTestCase {
-	public void testFindClosesMethod() {
+	
+	public void testGetPrimitiveEquivlent() {
+		Assert.assertNull(MethodUtils.getPrimitiveEquivlent(null));
 		
+		HashMap<Class<?>,Class<?>> primToNonMap = new HashMap<Class<?>, Class<?>>();
+		primToNonMap.put(Byte.class, byte.class);
+		primToNonMap.put(Short.class, short.class);
+		primToNonMap.put(Integer.class, int.class);
+		primToNonMap.put(Long.class, long.class);
+		primToNonMap.put(Double.class, double.class);
+		primToNonMap.put(Boolean.class, boolean.class);
+		primToNonMap.put(Character.class, char.class);
+		primToNonMap.put(Float.class, float.class);
+		
+		for(Class<?> nonPrim: primToNonMap.keySet()) {
+			Assert.assertTrue(
+					MethodUtils.getPrimitiveEquivlent(nonPrim) == primToNonMap.get(nonPrim)
+			);
+			Assert.assertTrue(
+					MethodUtils.getPrimitiveEquivlent(primToNonMap.get(nonPrim)) == nonPrim
+			);
+		}
+	}
+	
+	public void testFindMethodsMatching() {
+		try {
+			MethodUtils.findMethodsMatching(null, null);
+			Assert.assertTrue(false);
+		} catch (IllegalArgumentException e) {
+			Assert.assertTrue(true);
+		}
+		
+		try {
+			MethodUtils.findMethodsMatching(MethodUtilsTest.class, null);
+			Assert.assertTrue(false);
+		} catch (IllegalArgumentException e) {
+			Assert.assertTrue(true);
+		}
+		
+		int cnt = MethodUtils.findMethodsMatching(MethodUtilsTest.class, Pattern.compile("^test.*$")).size();
+		Assert.assertTrue(cnt > 1);
+		
+		cnt = MethodUtils.findMethodsMatching(MethodUtilsTest.class, Pattern.compile("^testFindMethodsMatching$")).size();
+		Assert.assertTrue(cnt == 1);
+		
+		cnt = MethodUtils.findMethodsMatching(MethodUtilsTest.class, Pattern.compile("^sdf sd lss fodfjsdoifoiwhifdkslfdsklfsd fsf$")).size();
+		Assert.assertTrue(cnt == 0);
+	}
+	
+	public void testFindClosestMethod() {
 		Assert.assertNotNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					String.class,
 					int.class
@@ -29,8 +80,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		Assert.assertNotNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					String.class,
 					null
@@ -40,8 +93,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		Assert.assertNotNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					null,
 					int.class
@@ -51,8 +106,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		Assert.assertNotNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					null,
 					null
@@ -62,8 +119,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		Assert.assertNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					null,
 				}
@@ -72,8 +131,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		Assert.assertNull(
 			MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"thisIsMySuperTestMethod", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^thisIsMySuperTestMethod$")
+				),
 				new Class<?>[]{
 					String.class,
 				}
@@ -81,8 +142,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		);
 		
 		Method method = MethodUtils.findClosestMethod(
-			MethodUtilsTest.class, 
-			"anotherMethod", 
+			MethodUtils.findMethodsMatching(
+				MethodUtilsTest.class, 
+				Pattern.compile("^anotherMethod$")
+			),
 			new Class<?>[]{
 				ArrayList2.class,
 			}
@@ -98,8 +161,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 		
 		Assert.assertNotNull(MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"onInvokeActivityOnActivityResult", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^onInvokeActivityOnActivityResult$")
+				),
 				new Class<?>[]{
 					null,
 					null,
@@ -109,8 +174,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		));
 		
 		Assert.assertNotNull(MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"onInvokeActivityOnActivityResult", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^onInvokeActivityOnActivityResult$")
+				),
 				new Class<?>[]{
 					Activity.class,
 					null,
@@ -120,8 +187,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		));
 		
 		Assert.assertNotNull(MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"onInvokeActivityOnActivityResult", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^onInvokeActivityOnActivityResult$")
+				),
 				new Class<?>[]{
 					Activity.class,
 					int.class,
@@ -132,8 +201,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 
 		Assert.assertNotNull(MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"onInvokeActivityOnActivityResult", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^onInvokeActivityOnActivityResult$")
+				),
 				new Class<?>[]{
 					Activity.class,
 					int.class,
@@ -143,8 +214,10 @@ public class MethodUtilsTest extends AndroidTestCase {
 		));
 		
 		Assert.assertNotNull(MethodUtils.findClosestMethod(
-				MethodUtilsTest.class, 
-				"onInvokeActivityOnActivityResult", 
+				MethodUtils.findMethodsMatching(
+					MethodUtilsTest.class, 
+					Pattern.compile("^onInvokeActivityOnActivityResult$")
+				),
 				new Class<?>[]{
 					Activity.class,
 					int.class,
@@ -158,10 +231,12 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void anotherMethod(ArrayList list) {
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void anotherMethod(List list) {
 		
 	}
@@ -171,6 +246,7 @@ public class MethodUtilsTest extends AndroidTestCase {
 		
 	}
 	
+	@SuppressWarnings({ "rawtypes", "serial" })
 	private class ArrayList2 extends ArrayList {
 		
 	}

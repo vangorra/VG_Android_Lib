@@ -45,7 +45,7 @@ public class GoogleAnalyticsModule implements Module {
 	} // method
 	
 	@Override
-	public void load(Context context, Bundle args) {
+	public void load(Bundle args) {
 		/**
 		 * Configure the tracker id.
 		 */

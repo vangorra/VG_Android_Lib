@@ -11,21 +11,14 @@ import android.test.AndroidTestCase;
 
 public class ModuleManagerTest extends AndroidTestCase {
 	public void testGetInstance() {
-		try {
-			assertNotNull(ModuleManager.getInstance(null));
-			assertTrue(false);
-		} catch (IllegalArgumentException e) {
-			assertTrue(true);
-		}
-		
-		assertNotNull(ModuleManager.getInstance(getContext()));
-		assertNotNull(ModuleManager.getInstance(getContext()));
+		assertNotNull(ModuleManager.getInstance());
+		assertNotNull(ModuleManager.getInstance());
 	}
 	
 	public void testIsLoaded() {
 		try {
 			assertTrue(
-				ModuleManager.getInstance(getContext()).isLoaded(null)
+				ModuleManager.getInstance().isLoaded(null)
 			);
 			assertTrue(false);
 		} catch (IllegalArgumentException e) {
@@ -33,7 +26,7 @@ public class ModuleManagerTest extends AndroidTestCase {
 		}
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext())
+			ModuleManager.getInstance()
 				.load(
 					TestModule.class, 
 					new Bundle()
@@ -41,16 +34,16 @@ public class ModuleManagerTest extends AndroidTestCase {
 		);
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext()).isLoaded(TestModule.class)
+			ModuleManager.getInstance().isLoaded(TestModule.class)
 		);
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
+		assertTrue(ModuleManager.getInstance().unload(TestModule.class));
 	}
 	
 	public void testLoad() {
 		try {
 			assertTrue(
-				ModuleManager.getInstance(getContext())
+				ModuleManager.getInstance()
 					.load(
 						null,
 						null
@@ -63,7 +56,7 @@ public class ModuleManagerTest extends AndroidTestCase {
 		
 		try {
 			assertTrue(
-				ModuleManager.getInstance(getContext())
+				ModuleManager.getInstance()
 					.load(
 						null,
 						null
@@ -76,7 +69,7 @@ public class ModuleManagerTest extends AndroidTestCase {
 		
 		try {
 			assertTrue(
-				ModuleManager.getInstance(getContext())
+				ModuleManager.getInstance()
 					.load(
 						null,
 						null
@@ -89,7 +82,7 @@ public class ModuleManagerTest extends AndroidTestCase {
 		
 		try {
 			assertTrue(
-				ModuleManager.getInstance(getContext())
+				ModuleManager.getInstance()
 					.load(
 						TestModule.class,
 						null
@@ -101,7 +94,7 @@ public class ModuleManagerTest extends AndroidTestCase {
 		}
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext())
+			ModuleManager.getInstance()
 				.load(
 					TestModule.class,
 					new Bundle()
@@ -109,30 +102,30 @@ public class ModuleManagerTest extends AndroidTestCase {
 		);		
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext())
+			ModuleManager.getInstance()
 				.load(
 					TestModule.class,
 					new Bundle()
 				)
 		);
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
+		assertTrue(ModuleManager.getInstance().unload(TestModule.class));
 	}
 	
 	public void testUnload() {
 		try {
-			ModuleManager.getInstance(getContext()).unload(null);
+			ModuleManager.getInstance().unload(null);
 			assertTrue(false);
 		} catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
 		
 		assertFalse(
-			ModuleManager.getInstance(getContext()).unload(TestModule.class)
+			ModuleManager.getInstance().unload(TestModule.class)
 		);		
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext())
+			ModuleManager.getInstance()
 				.load(
 					TestModule.class,
 					new Bundle()
@@ -140,33 +133,33 @@ public class ModuleManagerTest extends AndroidTestCase {
 		);
 		
 		assertTrue(
-			ModuleManager.getInstance(getContext()).unload(TestModule.class)
+			ModuleManager.getInstance().unload(TestModule.class)
 		);
 	}
 	
 	public void testGet() {
 		try {
-			ModuleManager.getInstance(getContext()).get(null);
+			ModuleManager.getInstance().get(null);
 			assertTrue(false);
 		} catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
 		
-		assertNull(ModuleManager.getInstance(getContext()).get(TestModule.class));
+		assertNull(ModuleManager.getInstance().get(TestModule.class));
 
-		ModuleManager.getInstance(getContext())
+		ModuleManager.getInstance()
 			.load(
 				TestModule.class,
 				new Bundle()
 			);
 		
-		assertNotNull(ModuleManager.getInstance(getContext()).get(TestModule.class));
+		assertNotNull(ModuleManager.getInstance().get(TestModule.class));
 		
-		assertTrue(ModuleManager.getInstance(getContext()).unload(TestModule.class));
+		assertTrue(ModuleManager.getInstance().unload(TestModule.class));
 	}
 	
-	public void testInvoke() {
-		ModuleManager mm = ModuleManager.getInstance(getContext());
+	public void testInvokeAll() {
+		ModuleManager mm = ModuleManager.getInstance();
 		
 		mm
 			.load(
@@ -176,10 +169,10 @@ public class ModuleManagerTest extends AndroidTestCase {
 		
 		TestModule mod = mm.get(TestModule.class);
 		
-		mm.invoke("ActivityOnResume");
+		mm.invokeAll("ActivityOnResume");
 		Assert.assertTrue(mod.isSimpleMethodCalled());
 		
-		mm.invoke("ActivityOnActivityResult", null, 0, 0, new Intent());
+		mm.invokeAll("ActivityOnActivityResult", null, 0, 0, new Intent());
 		Assert.assertTrue(mod.isComplicatedMethodCalled());
 	}
 }

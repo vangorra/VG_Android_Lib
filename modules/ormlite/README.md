@@ -20,7 +20,7 @@ Goto your project properties and add VGMod_OrmLite as a library.
 			
 			// have fun.
 			// Start coding with ORMLite just as you had before.
-			// ModuleManager.getInstance().get("OrmLite").getHelper();
+			// ModuleManager.getInstance().get(OrmLiteMOdule.class).getHelper();
 		}
 
 		...

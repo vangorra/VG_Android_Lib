@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 
+import com.vg.lib.io.StreamUtils;
+
 public class AssetFileUtils {
 	/**
 	 * Copy an asset file to a place on the local filesystem (usually the app's home directory) 
@@ -78,7 +80,7 @@ public class AssetFileUtils {
 		InputStream is = assetManager.open(assetPath);
 		try {
 			OutputStream os = new FileOutputStream(destFile);
-			copyStream(is, os);
+			StreamUtils.copyStream(is, os);
 			is.close();
 			os.close();
 			return true;
@@ -136,7 +138,7 @@ public class AssetFileUtils {
 		InputStream is = assetManager.open(assetPath);
 		try {
 			OutputStream os = new FileOutputStream(destFile);
-			copyStream(is, os);
+			StreamUtils.copyStream(is, os);
 			is.close();
 			os.close();
 			return true;
@@ -145,18 +147,4 @@ public class AssetFileUtils {
 			return false;
 		}
 	} // method
-	
-	/**
-	 * Copy an InputStream to an OutputStream
-	 * @param in
-	 * @param out
-	 * @throws IOException
-	 */
-	private static void copyStream(InputStream in, OutputStream out) throws IOException {
-	    byte[] buffer = new byte[1024];
-	    int read;
-	    while((read = in.read(buffer)) != -1){
-	      out.write(buffer, 0, read);
-	    }
-	}
 }

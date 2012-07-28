@@ -1,8 +1,8 @@
 package com.vg.lib.module;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -21,12 +21,12 @@ public abstract class ModuleActivity extends SherlockActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		onLoadModules(ModuleManager.getInstance(this));
+		onLoadModules(ModuleManager.getInstance());
 		
 		super.onCreate(savedInstanceState);
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnCreate", this, savedInstanceState);
+		ModuleManager.getInstance().invokeAll("ActivityOnCreate", (Activity)this, savedInstanceState);
 	} // method
 
 	@Override
@@ -34,7 +34,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onPostCreate(savedInstanceState);
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnPostCreate", this, savedInstanceState);
+		ModuleManager.getInstance().invokeAll("ActivityOnPostCreate", (Activity)this, savedInstanceState);
 	} // method
 
 	@Override
@@ -42,7 +42,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onSaveInstanceState(outState);
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnSaveInstanceState", this, outState);
+		ModuleManager.getInstance().invokeAll("ActivityOnSaveInstanceState", (Activity)this, outState);
 	} // method
 
 	@Override
@@ -50,7 +50,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onPause();
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnPause", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnPause", (Activity)this);
 	} // method
 
 	@Override
@@ -58,7 +58,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onRestart();
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnRestart", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnRestart", (Activity)this);
 	} // method
 
 	@Override
@@ -66,7 +66,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onDestroy();
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnDestroy", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnDestroy", (Activity)this);
 	} // method
 
 	@Override
@@ -74,7 +74,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onResume();
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnResume", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnResume", (Activity)this);
 	} // method
 
 	@Override
@@ -82,7 +82,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onStart();
 
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnStart", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnStart", (Activity)this);
 	} // method
 
 	@Override
@@ -90,7 +90,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onStop();
 		
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnStop", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnStop", (Activity)this);
 	} // method
 
 	@Override
@@ -98,7 +98,7 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		// notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnActivityResult", this, requestCode, resultCode, data);
+		ModuleManager.getInstance().invokeAll("ActivityOnActivityResult", (Activity)this, requestCode, resultCode, data);
 	} // method
 
 	@Override
@@ -106,6 +106,6 @@ public abstract class ModuleActivity extends SherlockActivity {
 		super.onUserInteraction();
 		
 		//notify the module manager of the event.
-		ModuleManager.getInstance(this).invoke("ActivityOnUserInteraction", this);
+		ModuleManager.getInstance().invokeAll("ActivityOnUserInteraction", (Activity)this);
 	} // method
 } // class

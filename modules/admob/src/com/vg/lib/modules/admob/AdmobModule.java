@@ -59,7 +59,7 @@ public class AdmobModule implements Module {
 	private int adsWrapperRes = R.id.adsWrapper;
 	
 	@Override
-	public void load(Context context, Bundle args) {
+	public void load(Bundle args) {
 		/*
 		 * Configure the API key.
 		 */

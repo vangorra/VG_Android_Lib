@@ -11,8 +11,6 @@ import com.vg.lib.util.IntentUtils;
 
 public class IntentUtilsTest extends AndroidTestCase {
 	public void testQueryAppsSupportingIntent() {
-		
-		
 		try {
 			IntentUtils.queryAppsSupportingIntent(null, null);
 			assertTrue(false);
@@ -41,6 +39,6 @@ public class IntentUtilsTest extends AndroidTestCase {
 				new Intent(getContext(), TestActivity.class)
 		);
 		assertNotNull(info);
-		assertTrue(info.size() == 1);
+		assertTrue(info.size() == 0);
 	}
 }

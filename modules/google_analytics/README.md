@@ -19,7 +19,7 @@
 			// have fun.
 
 			// do custom stuff too!
-			// ModuleManager.getInstance().get("GoogleAnalytics").getTracker();
+			// ModuleManager.getInstance().get(GoogleAnalyticsModule.class).getTracker();
 		}
 
 		...

@@ -1,6 +1,5 @@
 package com.vg.lib.module;
 
-import android.content.Context;
 import android.os.Bundle;
 
 /**
@@ -16,10 +15,9 @@ public interface Module {
 	/**
 	 * Called when a module instance is being loaded.
 	 * This is specific to the module system.
-	 * @param context the current activity context.
 	 * @param args The arguments to send to the module.
 	 */
-	public void load(Context context, Bundle args);
+	public void load(Bundle args);
 	
 	/**
 	 * Called when the module is being unloaded.

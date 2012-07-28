@@ -4,7 +4,6 @@ import com.vg.lib.module.Module;
 import com.vg.lib.module.ModuleManager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
@@ -18,7 +17,7 @@ public class ModuleActivityTest extends ActivityInstrumentationTestCase2<ModuleA
 	
 	public void testEventDispatch() {
 		ModuleActivityImpl activity = getActivity();
-		ModuleManager.getInstance(activity)
+		ModuleManager.getInstance()
 			.load(this.getClass(), new Bundle())
 		;
 		
@@ -113,7 +112,7 @@ public class ModuleActivityTest extends ActivityInstrumentationTestCase2<ModuleA
 	}
 
 	@Override
-	public void load(Context context, Bundle args) {
+	public void load(Bundle args) {
 		callRecieved = true;
 	}
 

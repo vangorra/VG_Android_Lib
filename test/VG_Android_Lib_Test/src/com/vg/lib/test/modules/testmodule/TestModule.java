@@ -1,7 +1,6 @@
 package com.vg.lib.test.modules.testmodule;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +12,7 @@ public class TestModule implements Module {
 	private boolean mIsSimpleMethodCalled = false;
 
 	@Override
-	public void load(Context context, Bundle args) {
+	public void load(Bundle args) {
 		
 	}
 

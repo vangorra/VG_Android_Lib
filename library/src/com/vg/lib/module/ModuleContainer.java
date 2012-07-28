@@ -9,4 +9,5 @@ final class ModuleContainer {
 	public Module module;
 	public Bundle loadArgs;
 	public ModuleInfo information;
+	public boolean isLoaded = false;
 } // class
