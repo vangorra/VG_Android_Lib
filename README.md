@@ -1,5 +1,7 @@
-VG Android Lib
+VG Android Lib (Obsolete)
 ===
+This library is obsolete. It is easily replaced by Dagger2 and Otto. I do not reccomend using this library.
+
 Every Android library has its own requirements to run. Some libraries have to be run onCreate other, onResume or even onDestroy. Devs mitigate the issue by creating a base activity for their project where all the custom events are handled.
 
 Why can't this automated? 
